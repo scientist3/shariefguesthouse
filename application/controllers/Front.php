@@ -60,7 +60,7 @@ class Front extends CI_Controller
 		if ($this->input->cookie('booking_id', true)) {
 			$data['existing_booking_id'] = "Booking successful! Your previous booking ID is " . $this->input->cookie('booking_id', true);
 		}
-		$data['room_types'] = $this->front_model->get_room_types();
+		$data['room_types'] = $this->front_model->get_room_types_active();
 		$data['content'] = $this->load->view('frontsite/booking/booking', $data, true);
 		$this->load->view('frontsite/layout/wrapper_view', $data);
 	}

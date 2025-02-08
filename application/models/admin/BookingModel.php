@@ -67,6 +67,7 @@ class BookingModel extends CI_Model
 		return $this->db->select("*")
 			->from($this->table)
 			->where('DATE(created_at)', $date)
+			->order_by("created_at", "desc")
 			->get()
 			->result();
 	}

@@ -138,6 +138,11 @@
 				[7, 10, 25, 50, -1],
 				[7, 10, 25, 50, "All"]
 			],
+			"order": [],
+			"columnDefs": [{
+				"orderable": false,
+				"targets": 0
+			}],
 			buttons: [{
 				extend: 'colvis',
 				className: 'btn-sm'

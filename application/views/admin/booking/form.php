@@ -18,6 +18,7 @@
 					<table width="100%" class="datatable_colvis table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
+								<th><?php echo ('Booking Date') ?></th>
 								<th><?php echo ('Booking ID') ?></th>
 								<th><?php echo ('Full Name') ?></th>
 								<th><?php echo ('Email') ?></th>
@@ -36,6 +37,7 @@
 								<?php $sl = 1; ?>
 								<?php foreach ($bookings as $booking) { ?>
 									<tr>
+										<td><?php echo date('d M Y, h:i A', strtotime($booking->created_at)); ?></td>
 										<td><?php echo $booking->booking_id; ?></td>
 										<td><?php echo $booking->full_name; ?></td>
 										<td><?php echo $booking->email; ?></td>
@@ -56,8 +58,24 @@
 										</td>
 										<td><?php echo $booking->remarks; ?></td>
 										<td class="text-center" width="100">
-											<a href="<?php echo base_url("admin/booking/update_status/$booking->id/Confirmed") ?>" class="btn btn-xs btn-success">Confirm</a>
-											<button type="button" class="btn btn-xs btn-danger btn-cancel" data-id="<?php echo $booking->id; ?>">Cancel</button>
+											<?php if ($booking->status == 'Pending') { ?>
+												<a href="<?php echo base_url("admin/booking/update_status/$booking->id/Confirmed") ?>" class="btn btn-xs btn-success">Confirm</a>
+												<button type="button" class="btn btn-xs btn-danger btn-cancel" data-id="<?php echo $booking->id; ?>">Cancel</button>
+											<?php } else { ?>
+												<?php
+												$whatsapp_number = $booking->phone;
+												if (strpos($whatsapp_number, '+') !== 0) {
+													$whatsapp_number = '+91' . $whatsapp_number; // Assuming default country code +91
+												}
+												$message = "Hello, Your booking is : " . $booking->booking_id . ". Please contact us for more details.";
+												$encoded_message = urlencode($message);
+												?>
+
+												<a href="https://wa.me/<?php echo $whatsapp_number; ?>?text=<?php echo $encoded_message; ?>"
+													class="btn btn-xs btn-dark" target="_blank">
+													<i class="fa fa-comments"></i> Whatsapp
+												</a>
+											<?php } ?>
 										</td>
 									</tr>
 									<?php $sl++; ?>
@@ -70,7 +88,35 @@
 		</div>
 	</div>
 </section>
+<style>
+	.float-whatsapap-chat {
+		position: fixed;
+		bottom: 40px;
+		right: 60px;
+		background-color: #25d366;
+		color: #fff;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		text-align: center;
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
+	.float-whatsapp-chat:hover {
+		background-color: #128c7e;
+	}
+
+	.float-whatsapp-chat a {
+		color: #fff;
+	}
+
+	.float-whatsapp-chat a:hover {
+		color: #fff;
+	}
+</style>
 <!-- Cancel Remarks Modal -->
 <div class="modal fade" id="cancelRemarksModal" tabindex="-1" role="dialog" aria-labelledby="cancelRemarksModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">

@@ -35,11 +35,11 @@
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="checkin">Check-in Date</label>
-									<input type="date" class="form-control" id="checkin" name="checkin">
+									<input type="date" class="form-control" id="checkin" name="checkin" min="<?= date('Y-m-d'); ?>">
 								</div>
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="checkout">Check-out Date</label>
-									<input type="date" class="form-control" id="checkout" name="checkout">
+									<input type="date" class="form-control" id="checkout" name="checkout" min="<?= date('Y-m-d'); ?>">
 								</div>
 							</div>
 							<div class="row">

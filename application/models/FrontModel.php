@@ -42,4 +42,18 @@ class FrontModel extends CI_Model
 		}
 		return $room_types;
 	}
+	public function get_room_types_active()
+	{
+		$result = $this->db->select("id, room_type")
+			->from("room_types_tbl")
+			->where('status', 1)
+			->get()
+			->result_array();
+
+		$room_types = [];
+		foreach ($result as $row) {
+			$room_types[$row['id']] = $row['room_type'];
+		}
+		return $room_types;
+	}
 }
