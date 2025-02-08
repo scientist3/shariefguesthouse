@@ -41,6 +41,8 @@ class Front extends CI_Controller
 	{
 		$data['title'] = "Booking";
 		if ($this->input->post()) {
+			$adventure = $this->input->post('adventure'); // Get checkbox values
+			$adventure_str = !empty($adventure) ? implode(',', $adventure) : NULL;
 			$booking_data = array(
 				'booking_id' => $this->newId(),
 				'full_name' => $this->input->post('name'),
@@ -49,12 +51,14 @@ class Front extends CI_Controller
 				'checkin_date' => $this->input->post('checkin'),
 				'checkout_date' => $this->input->post('checkout'),
 				'guests' => $this->input->post('guests'),
-				'room_type' => $this->input->post('room')
+				'room_type' => $this->input->post('room'),
+				'adventure' => $adventure_str
 			);
 
 			$this->front_model->saveBooking($booking_data);
 			$data['success'] = "Booking successful! Your booking ID is " . $booking_data['booking_id'];
 			$this->input->set_cookie('booking_id', $booking_data['booking_id'], 86400 * 30);
+			redirect('front/booking');
 		}
 
 		if ($this->input->cookie('booking_id', true)) {

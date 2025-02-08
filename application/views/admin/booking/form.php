@@ -23,8 +23,8 @@
 								<th><?php echo ('Full Name') ?></th>
 								<th><?php echo ('Email') ?></th>
 								<th><?php echo ('Phone Number') ?></th>
-								<th><?php echo ('Check-in Date') ?></th>
-								<th><?php echo ('Check-out Date') ?></th>
+								<th><?php echo ('Check-in/out') ?></th>
+								<th><?php echo ('Adventure') ?></th>
 								<th><?php echo ('Number of Guests') ?></th>
 								<th><?php echo ('Room Type') ?></th>
 								<th><?php echo ('Status') ?></th>
@@ -42,8 +42,8 @@
 										<td><?php echo $booking->full_name; ?></td>
 										<td><?php echo $booking->email; ?></td>
 										<td><?php echo $booking->phone; ?></td>
-										<td><?php echo $booking->checkin_date; ?></td>
-										<td><?php echo $booking->checkout_date; ?></td>
+										<td><?php echo date('d M Y', strtotime($booking->checkin_date)) . "-" . date('d M Y', strtotime($booking->checkout_date)); ?></td>
+										<td><?php echo $booking->adventure; ?></td>
 										<td><?php echo $booking->guests; ?></td>
 										<td><?php echo $room_types[$booking->room_type] ?? 'NA'; ?></td>
 										<td>

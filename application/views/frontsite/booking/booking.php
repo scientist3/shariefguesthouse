@@ -11,49 +11,77 @@
 						<?php endif; ?>
 						<h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Hotel Booking Form <a href="<?php echo base_url('front/checkbookingstatus'); ?>" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Check Booking Status</a></h3>
 
-						<form class="" action="<?php echo base_url('front/booking'); ?>" method="POST" style="padding-top: 20px;">
+						<form class="" action="<?php echo base_url('front/booking'); ?>" method="POST" style="padding-top: 20px;" onsubmit="return validateForm()">
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="name">Full Name</label>
-									<input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name">
+									<input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
 								</div>
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="email">Email address</label>
-									<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+									<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="phone">Phone Number</label>
-									<input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number">
+									<input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
 								</div>
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="guests">Number of Guests</label>
-									<input type="number" class="form-control" id="guests" name="guests" placeholder="Enter number of guests">
+									<input type="number" class="form-control" id="guests" name="guests" placeholder="Enter number of guests" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="checkin">Check-in Date</label>
-									<input type="date" class="form-control" id="checkin" name="checkin" min="<?= date('Y-m-d'); ?>">
+									<input type="date" class="form-control" id="checkin" name="checkin" min="<?= date('Y-m-d'); ?>" required>
 								</div>
 								<div class="form-group col-md-6 col-sm-6">
 									<label for="checkout">Check-out Date</label>
-									<input type="date" class="form-control" id="checkout" name="checkout" min="<?= date('Y-m-d'); ?>">
+									<input type="date" class="form-control" id="checkout" name="checkout" min="<?= date('Y-m-d'); ?>" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col-md-12">
 									<label for="room">Room Type</label>
-									<select class="form-control" id="room" name="room">
+									<select class="form-control" id="room" name="room" required>
 										<?php foreach ($room_types as $index => $room_type): ?>
 											<option value="<?= $index; ?>"><?= $room_type; ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
+							<div class="row">
+								<div class="form-group col-md-12">
+									<label for="adventure">Adventure Activities</label>
+								</div>
+								<div class="form-group col-md-6 col-sm-6">
+									<input type="checkbox" id="camping" name="adventure[]" value="Camping">
+									<label for="camping">Camping</label>
+								</div>
+								<div class="form-group col-md-6 col-sm-6">
+									<input type="checkbox" id="trekking" name="adventure[]" value="Trekking">
+									<label for="trekking">Trekking</label>
+								</div>
+							</div>
 							<button type="submit" class="btn btn-primary pull-right"> <i class="fa fa-save"></i> Book Now</button>
 						</form>
+
+						<script>
+							function validateForm() {
+								var requiredFields = ['name', 'email', 'phone', 'guests', 'checkin', 'checkout', 'room'];
+								for (var i = 0; i < requiredFields.length; i++) {
+									var field = document.getElementById(requiredFields[i]);
+									if (!field.value) {
+										alert('Please fill out the ' + field.previousElementSibling.innerText + ' field.');
+										field.focus();
+										return false;
+									}
+								}
+								return true;
+							}
+						</script>
 					</div>
 				</div>
 			</div>
